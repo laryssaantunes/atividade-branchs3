@@ -1,5 +1,13 @@
-@@ -1,40 +0,0 @@
-<div class="form-container">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Corrigido</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="form-container">
     <h1>Login</h1>
     <form id="loginForm">
       <input type="email" id="email" placeholder="E-mail" required>
@@ -14,10 +22,10 @@
     document.getElementById('loginForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
-      const email = document.getElementById('email').text;
-      const senha = document.getElementById('senha').val();
+      const email = document.getElementById('email').value;
+      const senha = document.getElementById('senha').value;
 
-      fetch('http://localhost:3000/loginn', {
+      fetch('http://localhost:3000/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -27,15 +35,18 @@
           senha: senha
         })
       })
-      .then(response => {
-        if (response.ok) {
-          alert(response.message);
+      .then(response => response.json())
+      .then(data => {
+        if (data.message) {
+          alert(data.message);
         } else {
           throw new Error('Falha no login');
         }
       })
       .catch(error => {
-        document.getElementById('errorMessage').textContent = "Erro desconhecido";
+        document.getElementById('errorMessage').textContent = "Erro desconhecido: " + error.message;
       });
     });
   </script>
+</body>
+</html>
