@@ -1,0 +1,40 @@
+<div class="form-container">
+    <h1>Login</h1>
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="E-mail" required>
+      <input type="password" id="senha" placeholder="Senha" required>
+      <button type="submit">Entrar</button>
+      <p id="errorMessage"></p>
+    </form>
+    <a href="index.html">Voltar para a página inicial</a>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const email = document.getElementById('email').text;
+      const senha = document.getElementById('senha').val();
+
+      fetch('http://localhost:3000/loginn', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: email,
+          senha: senha
+        })
+      })
+      .then(response => {
+        if (response.ok) {
+          alert(response.message);
+        } else {
+          throw new Error('Falha no login');
+        }
+      })
+      .catch(error => {
+        document.getElementById('errorMessage').textContent = "Erro desconhecido";
+      });
+    });
+  </script>
