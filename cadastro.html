@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastro com Erro</title>
+  <title>Cadastro</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -25,10 +25,10 @@
       e.preventDefault();
 
       const nome = document.getElementById('nome').value;
-      const email = document.getElementById('email').text;  <!-- Erro: deveria ser .value -->
-      const senha = document.getElementById('senha').val();  <!-- Erro: deveria ser .value -->
+      const email = document.getElementById('email').value;
+      const senha = document.getElementById('senha').value;
 
-      fetch('http://localhost:3000/cadastros', {  <!-- Erro: URL errada, 'cadastros' em vez de 'cadastro' -->
+      fetch('http://localhost:3000/cadastro', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -39,15 +39,16 @@
           senha: senha
         })
       })
-      .then(response => {
-        if (response.ok) {
+      .then(response => response.json())
+      .then(data => {
+        if (data.message) {
           alert('Cadastro bem-sucedido!');
         } else {
           throw new Error('Erro no cadastro');
         }
       })
       .catch(error => {
-        document.getElementById('cadastroMessage').textContent = error.message;
+        document.getElementById('cadastroMessage').textContent = "Erro: " + error.message;
       });
     });
   </script>
