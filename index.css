@@ -95,14 +95,6 @@ img {
     color: #777777;
 }
 
-.card ul {
-    padding-left: 20px;
-    color: #444;
-}
-
-.card li {
-    margin-bottom: 8px;
-}
 
 footer {
     display: flex;
